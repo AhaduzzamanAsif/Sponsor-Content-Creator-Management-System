@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="row" style="margin-top: 50px;">
+
+        <div class="col-lg-1"></div>
+        <div class="box-element col-lg-10">
+            <h3>Update Business Profile</h3>
+
+            <form class="form-horizontal form_middle" enctype='multipart/form-data' method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+            
+                <input type="submit" name="Update">
+            </form>
+        </div>
+        <div class="col-lg-1"></div>
+</div>
+
+{% endblock content %}

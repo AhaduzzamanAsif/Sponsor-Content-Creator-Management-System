@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    h3 {
+        color: red;
+    }
+
+    .top_padding {
+        padding-top: 50px;
+    }
+</style>
+<div class="row top_padding">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        <h1>SignUp Below</h1>
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {%endfor%}
+
+        <form method="POST" action="register">
+            {% csrf_token %}
+            <p>Username:</p>
+            <input type="text" name="username">
+            <p>Email:</p>
+            <input type="email" name="email">
+            <p>Please Select User Type:</p>
+            <input type="radio" id="contentcreator" name="user_type" value="contentcreator">
+            <label for="css">Content Creator</label>
+            <input type="radio" id="sponsor" name="user_type" value="sponsor">
+            <label for="javascript">Sponsor</label>
+            <p>Password:</p>
+            <input type="password" name="password">
+            <p>Repeat Password:</p>
+            <input type="password" name="password2">
+            <br><br>
+            <input class="btn btn-dark" type="submit" value="Signup">
+        </form>
+
+    </div>
+    <div class="col-lg-4"></div>
+</div>
+{% endblock content %}
