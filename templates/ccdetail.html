@@ -1,0 +1,197 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .image-section {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+  }
+
+  .image-section img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .details-section {
+    flex: 2;
+    padding: 20px;
+  }
+
+  .details-section h3 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .details-section table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .details-section th, .details-section td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .details-section th {
+    width: 30%;
+    color: #555;
+  }
+
+  .details-section td {
+    color: #333;
+  }
+
+  .form-wrapper {
+    margin-top: 50px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-wrapper h2 {
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+
+  .form-wrapper form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-wrapper form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  .form-wrapper form input, .form-wrapper form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-wrapper form button {
+    width: 100%;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .form-wrapper form button:hover {
+    background-color: #45a049;
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column;
+    }
+
+    .image-section, .details-section {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="content-wrapper">
+    <div class="image-section">
+      <img class="thumbnail" src="{{cc.image.url}}">
+      <h6><strong>{{ cc.channelname }}</strong></h6>
+      <hr>
+      <h4><strong>Subscriber: {{ cc.total_subscriber }}</strong></h4>
+    </div>
+
+    <div class="details-section">
+      <h3>Description</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">Channel Name:</th>
+            <td>{{cc.channelname}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Subscriber:</th>
+            <td>{{cc.total_subscriber}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description:</th>
+            <td>{{cc.description}}</td>
+          </tr>
+          <tr>
+            <th scope="row">About:</th>
+            <td>{{cc.about}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Contact Info:</th>
+            <td>{{cc.contactinfo}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Content Style:</th>
+            <td>{{cc.contentstyle}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% if flag == 1 %}
+  <div class="form-wrapper">
+    <h2>Sponsor Bidding Form</h2>
+    <form method="post" action="">
+      {% csrf_token %}
+  
+      <label for="companyName">Company Name:</label>
+      <input type="text" id="companyName" name="companyName" required>
+
+      <label for="bidAmount">Bid Amount:</label>
+      <input type="number" id="bidAmount" name="bidAmount" required>
+
+      <label for="message">Additional Message:</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit">Submit Bid</button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock content %}
+
+
+

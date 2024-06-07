@@ -1,0 +1,96 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    #post{
+            border: 1pt solid yellow;
+            padding: 10px;
+        }
+</style>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-lg-6">
+        <div class="box-element col-lg-8">
+            <table class="table">
+                <tbody>
+                    <tr>  
+                        <th style="vertical-align: middle"><img src="{% static 'images/istockphoto-1084418050-612x612.jpg' %}" alt="connect" style="max-height:300px"></th>
+                        <td><a href="{% url 'updateprofile' userinfo.id %}">Edit Info</a></td>
+                    </tr>
+            
+                    <tr>
+                        <th scope="row">Name:</th>
+                        <td>{{userinfo.username}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email:</th>
+                        <td>{{userinfo.email}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone Number:</th>
+                        <td>{{userinfo.phone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <a class="btn btn-dark btn-block" href="{% url 'logout_view' %}">Logout</a>
+        </div>
+    </div>
+    {% if cc %}
+    <div class="col-lg-6">
+        <h3>Business Profile</h3>
+        <br><br>
+    <table class="table">
+        <tbody>
+            <tr>  
+                <th scope="row">Channel Name:</th>
+                <td>{{cc.channelname}}</td>
+            </tr>
+    
+            <tr>
+                <th scope="row">Subsciber:</th>
+                <td>{{cc.total_subscriber}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Description:</th>
+                <td>{{cc.description}}</td>
+            </tr>
+            <tr>
+                <th scope="row">About:</th>
+                <td>{{cc.about}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Contact Info:</th>
+                <td>{{cc.contactinfo}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Content Style:</th>
+                <td>{{cc.contentstyle}}</td>
+            </tr>
+        </tbody>
+    </table>
+        <a class="btn btn-dark btn-block" href="{% url 'updateBprofile' userinfo.id %}">Update Profile</a>
+
+    </div>
+    <div >
+        {% if bidmessages %}
+        <h3>Bid Messages:</h3>
+        {% for message in bidmessages %}
+        <div id="post">
+            <p>{{message.bidmessage|linebreaksbr}}</p>
+            <a class="btn btn-dark btn-block" href="{% url 'createConversation' message.user1.pk %}">Accept</a>
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="col-lg-6">
+        <br><br><br>
+        <img style="width: 500px;" src="{% static 'images/thnx.png' %}" alt="">
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

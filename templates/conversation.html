@@ -1,0 +1,119 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .top_padding {
+        padding-top: 50px;
+    }
+
+    .table1 {
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+
+    #td2 {
+        border-radius: 5pt;
+        background-color: darkgray;
+        padding: 10px;
+    }
+
+    #textarea {
+        border-radius: 5pt;
+    }
+</style>
+<div class="row top_padding">
+    <div class="col-lg-4">
+        <h1>Conversation</h1>
+        <br>
+        <div>
+            <table class="table1" style="width: 100%;">
+                {% for message in messages %}
+                <tr>
+                    <td>@{{message.author}}</td>
+                    <td id="td2">{{message.msg}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div id="form">
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <textarea id="textarea" placeholder="Type your message here" name="message" cols="44" rows="3"></textarea>
+                <br>
+                <input class="btn btn-dark" type="submit" name="msg" value="Sent">
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        {% if flag == 0 %}
+        <h1>Work</h1>
+        <div id="form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <h5>Submit your Content Link here:</h5>
+                <input type="text" name="link" id="link">
+                <br> <br>
+                <input class="btn btn-dark" type="submit" value="Submit" name="content">
+            </form>
+        </div>
+        <br><br>
+        <div style="color: red">
+            {% if cr.amount %}
+            <p>Payment Completed form Sponsor</p>
+            <p>Amount: {{cr.amount}}</p>
+            {% if cr.isSpApproved and cr.isAdApproved %}
+            <p>Status: Unlocked</p>
+            <p>TransactionID: {{cr.transactionID}}</p>
+            {% else %}
+            <p>Status: Locked</p>
+            {% endif %}
+
+
+
+            {% endif %}
+        </div>
+        {% else %}
+        <h1>Payment</h1>
+        <div id="form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <h5>Pay to Confirm:</h5>
+                <input type="number" name="amount" id="amount">
+                <br> <br>
+                <input class="btn btn-dark" type="submit" value="Make Payment" name="amt">
+            </form>
+        </div>
+        <br><br>
+        {% if cr.amount%}
+        <div style="color: red">
+            <p>Payment Completed ({{cr.amount}} TK)</p>
+        </div>
+        <br>
+        {% if not cr.contentLink %}
+        <p style="color: red;">No work submitted yet from the Content Creator</p>
+        {% else %}
+        <div>
+            <h5>Content With your Sponsor:</h5>
+            <br>
+            <p>Content Link: <a href="https://{{cr.contentLink}}">Click here to see</a></p>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden"  name="amount" id="amount">
+                <input class="btn btn-dark" type="submit" value="Approve Payment" name="approve">
+            </form>
+            {% if cr.isSpApproved %}
+            <p>Approved for payment.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% endif %}
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

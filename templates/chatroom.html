@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .top_padding {
+        padding-top: 50px;
+    }
+    .chat-container {
+        text-align: center;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    .chat-container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #4caf50;
+    }
+    .chat-container h3 {
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
+    .chat-container h3 a {
+        text-decoration: none;
+        color: #007bff;
+    }
+    .chat-container h3 a:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+    .no-conversation {
+        font-size: 1.2rem;
+        color: #999;
+    }
+</style>
+
+<div class="container top_padding">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="chat-container">
+                <h1>Chat Room</h1>
+                <br><br>
+                {% if not chatrooms %}
+                    <h3 class="no-conversation">No Conversation Yet.</h3>
+                {% else %}
+                    {% for chatroom in chatrooms %}
+                        {% if flag == 1 %}
+                            <h3><a href="{% url 'Conversation' chatroom.id %}">{{ chatroom.sp }}</a></h3>
+                        {% else %}
+                        <h3><a href="{% url 'Conversation' chatroom.id %}">{{ chatroom.cc }}</a></h3>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

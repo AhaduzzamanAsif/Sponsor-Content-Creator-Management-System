@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="row" style="margin-top: 50px;">
+
+  {% for item in cc %}
+    {% if item.publish %}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="static/images/{{item.image}}">
+        <div class="box-element item">
+            <h6 class="text-secondary"><strong>{{ item.channelname }}</strong></h6>
+            <hr>
+            <a class="btn btn-dark" href="{% url 'ccdetail' item.user.id %}">View</a>
+        <h4 style="display: inline-block; float: right" class="text-dark"><strong>Subscriber: {{ item.total_subscriber }}</strong></h4>
+        </div>
+    </div>
+    {% endif %}
+  {% endfor item in products %}
+</div>
+{% endblock content %}

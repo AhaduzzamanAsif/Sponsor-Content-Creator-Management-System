@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        body{
+            padding: 50px;
+            background-color: black;
+            color: white;
+        }
+        #post{
+            border: 1pt solid black;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #121212;
+            color: white;
+        }
+        #form{
+            width: 50%;
+            padding: 10px;
+            margin: auto;
+            border-radius: 10px;
+            background-color: rgb(54, 51, 41);
+            color: white;
+        }
+        #postheader{
+            width: 50%;
+            margin: auto;
+            color: white;
+            font-size: 15pt;
+        }
+        form textarea{
+            border-radius: 10px;
+        }
+    </style>
+
+
+    <div id="postheader">
+        <p>Share your knowledge with the muslim community</p>
+    </div>
+    <div id="form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <textarea name="description" cols="50" rows="5"></textarea>
+            <br>
+            <input type="submit" value="Post">
+        </form>
+    </div>
+
+    <h1>Newsfeed</h1>
+    {% for post in posts %}
+    <div id="post">
+        <h5>@{{post.user}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{post.create_at}}</h5> 
+        <p>{{post.Description}}</p>
+        <br>
+        <button>Reaction</button>
+    </div>
+    <br>
+    {% endfor %}
+
+{% endblock content %}
